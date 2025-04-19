@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. This website showcases my projects, experience, and skills as a developer.
 
-## Live Demo
+## Portfolio Link
 
 [Live Portfolio Website](https://nicholas-klos-portfolio.vercel.app/)
 
