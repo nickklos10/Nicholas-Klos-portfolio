@@ -109,7 +109,7 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <div className="container mx-auto px-4 py-12 pt-24 md:pt-28">
       <h1 className="text-4xl font-bold mb-8 text-center">My Projects</h1>
       <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto text-center mb-12">
         Here are some of the projects I've worked on. Each project represents a

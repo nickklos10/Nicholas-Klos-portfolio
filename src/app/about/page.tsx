@@ -9,7 +9,7 @@ export default function About() {
   useEffect(() => setIsMounted(true), []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center relative px-4 sm:px-6 pt-6 sm:pt-12 overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center relative px-4 sm:px-6 pt-16 sm:pt-24 overflow-hidden">
       {/* Overlapping Titles - moderate spacing */}
       <div className="w-full text-center mb-16 sm:mb-24 md:mb-32 mt-8 sm:mt-16 relative">
         <h1 className="text-[12vw] font-bold text-white/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">

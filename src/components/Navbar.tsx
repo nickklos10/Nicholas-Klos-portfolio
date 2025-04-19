@@ -7,10 +7,7 @@ import { usePathname } from "next/navigation";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [hidden, setHidden] = useState(false);
-  const lastScrollY = useRef(0);
   const pathname = usePathname();
-  const scrollTimer = useRef<NodeJS.Timeout | null>(null);
 
   // Close mobile menu when clicking outside
   const menuRef = useRef<HTMLDivElement>(null);
@@ -40,54 +37,21 @@ const Navbar = () => {
     setIsOpen(false);
   }, [pathname]);
 
-  // Modified scroll handler with debounce
+  // Simpler scroll handler that only toggles background transparency
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const isMobile = window.innerWidth < 768;
-
-      // Always show navbar on mobile devices
-      if (isMobile) {
-        setHidden(false);
-        setScrolled(currentScrollY > 10);
-        return;
-      }
-
-      // Desktop behavior
-      if (currentScrollY > 50) {
+      if (window.scrollY > 20) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
-
-      // Only hide header on desktop
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setHidden(true);
-      } else {
-        setHidden(false);
-      }
-
-      lastScrollY.current = currentScrollY;
     };
 
-    // Debounced scroll handler for better performance
-    const debouncedScroll = () => {
-      if (scrollTimer.current) {
-        clearTimeout(scrollTimer.current);
-      }
+    // Initial call
+    handleScroll();
 
-      scrollTimer.current = setTimeout(() => {
-        handleScroll();
-      }, 10);
-    };
-
-    window.addEventListener("scroll", debouncedScroll, { passive: true });
-    return () => {
-      if (scrollTimer.current) {
-        clearTimeout(scrollTimer.current);
-      }
-      window.removeEventListener("scroll", debouncedScroll);
-    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const linkClasses = (path: string) => {
@@ -105,15 +69,18 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`text-gray-300 bg-slate-800/90 backdrop-blur-md transition-all duration-300 z-40 sticky top-0 md:${
-        hidden ? "-translate-y-full" : "translate-y-0"
-      }`}
-      style={{ height: "60px" }}
-    >
-      <div className="max-w-6xl mx-auto px-3 md:px-4 h-full">
-        <div className="flex justify-between items-center h-full">
-          {/* Left - Navigation Links */}
+    <header className="w-full fixed top-0 left-0 right-0 z-[9999]">
+      <nav
+        className={`w-full ${
+          scrolled ? "bg-slate-800/95" : "bg-slate-800/90"
+        } backdrop-blur-sm shadow-md`}
+        style={{ minHeight: "60px" }}
+      >
+        <div
+          className="max-w-6xl mx-auto px-4 h-full flex items-center justify-between"
+          style={{ minHeight: "60px" }}
+        >
+          {/* Left - Navigation Links (Desktop only) */}
           <div className="hidden md:flex space-x-4">
             <Link href="/" className={linkClasses("/")}>
               Home
@@ -130,11 +97,7 @@ const Navbar = () => {
           </div>
 
           {/* Center - Logo */}
-          <div
-            className={`flex-shrink-0 absolute left-1/2 transform -translate-x-1/2 transition-all duration-300 ${
-              scrolled ? "opacity-0 -translate-y-10" : "opacity-100"
-            }`}
-          >
+          <div className="flex-shrink-0 absolute left-1/2 transform -translate-x-1/2 transition-all duration-300">
             <div className="group w-10 h-10 md:w-12 md:h-12 bg-transparent rounded-full flex items-center justify-center overflow-hidden transition-all duration-300 border-2 border-gray-300 hover:border-blue-500">
               <span className="logo-text text-white text-base md:text-xl transition-colors duration-300">
                 NK
@@ -142,8 +105,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Right - Social Icons */}
-          <div className="hidden md:flex items-center space-x-4 pr-4">
+          {/* Right - Social Icons (Desktop only) */}
+          <div className="hidden md:flex items-center space-x-4">
             {/* X Icon */}
             <a
               href="https://x.com/klos_nicholas"
@@ -185,55 +148,58 @@ const Navbar = () => {
             </a>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button (Mobile only) */}
           <div className="md:hidden flex items-center">
             <button
               ref={buttonRef}
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-300 focus:outline-none"
-              aria-label="Toggle menu"
+              className="inline-flex items-center justify-center p-3 rounded-lg text-gray-200 hover:bg-slate-700 active:bg-slate-600 focus:outline-none"
+              aria-expanded={isOpen}
+              aria-label="Toggle navigation menu"
             >
-              <svg
-                className={`h-5 w-5 ${isOpen ? "hidden" : "block"}`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-              <svg
-                className={`h-5 w-5 ${isOpen ? "block" : "hidden"}`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              <span className="sr-only">Menu</span>
+              {isOpen ? (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              )}
             </button>
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Dropdown */}
       <div
         ref={menuRef}
-        className={`md:hidden fixed top-[60px] left-0 right-0 z-30 bg-slate-800/95 backdrop-blur-md transform transition-transform duration-300 ease-in-out ${
-          isOpen ? "translate-y-0" : "-translate-y-full"
+        className={`md:hidden absolute w-full bg-slate-800 shadow-xl transition-all duration-300 ease-in-out ${
+          isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="px-4 py-3 space-y-2.5 border-t border-slate-700 max-h-[80vh] overflow-y-auto pb-16">
+        <div className="px-4 py-3 space-y-1 border-t border-slate-700">
           <Link
             href="/"
             className={mobileLinkClasses("/")}
@@ -270,7 +236,7 @@ const Navbar = () => {
             Contact
           </Link>
 
-          <div className="flex items-center space-x-5 pt-3 border-t border-slate-700 mt-3">
+          <div className="flex items-center space-x-5 pt-3 border-t border-slate-700 mt-3 pb-4">
             <a
               href="https://x.com/klos_nicholas"
               className="text-gray-300 hover:text-blue-400 transition-colors"
@@ -311,7 +277,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </header>
   );
 };
 
