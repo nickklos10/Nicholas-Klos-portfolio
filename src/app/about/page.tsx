@@ -9,23 +9,23 @@ export default function About() {
   useEffect(() => setIsMounted(true), []);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center relative p-6 pt-12 overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center relative px-4 sm:px-6 pt-6 sm:pt-12 overflow-hidden">
       {/* Overlapping Titles - moderate spacing */}
-      <div className="w-full text-center mb-32 mt-16 relative">
+      <div className="w-full text-center mb-16 sm:mb-24 md:mb-32 mt-8 sm:mt-16 relative">
         <h1 className="text-[12vw] font-bold text-white/5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap">
           ABOUT ME
         </h1>
-        <h2 className="text-2xl text-white/90 tracking-widest relative z-10">
+        <h2 className="text-xl sm:text-2xl text-white/90 tracking-widest relative z-10">
           ABOUT ME
         </h2>
       </div>
 
       {/* Main content container - moderate spacing */}
       <div className={`max-w-6xl w-full ${styles.animateFadeIn}`}>
-        <div className="flex flex-col items-start gap-10 mb-16">
-          <div className="flex-1 space-y-10 w-full">
+        <div className="flex flex-col items-start gap-6 sm:gap-10 mb-10 sm:mb-16">
+          <div className="flex-1 space-y-6 sm:space-y-10 w-full">
             <div className={styles.animateSlideFromRight}>
-              <h1 className="text-3xl md:text-4xl mb-3">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl mb-3">
                 Hi there again! Still{" "}
                 <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text font-bold">
                   NICHOLAS
@@ -34,16 +34,16 @@ export default function About() {
             </div>
 
             <div
-              className={`space-y-7 ${styles.animateSlideFromRight} ${styles.animationDelay100}`}
+              className={`space-y-4 sm:space-y-7 ${styles.animateSlideFromRight} ${styles.animationDelay100}`}
             >
-              <p className="text-white/90 text-lg">
+              <p className="text-white/90 text-base sm:text-lg">
                 I graduated with a Bachelor of Science in Computer Science from
                 the University of Central Florida. With a foundation in AI/ML,
                 data science, and full‑stack development, I build scalable,
                 data‑driven applications and predictive models that solve
                 real‑world problems.
               </p>
-              <p className="text-white/90 text-lg">
+              <p className="text-white/90 text-base sm:text-lg">
                 With experience in solar energy data science optimizing panel
                 efficiency and financial data engineering at PwC, I focus on
                 production‑ready solutions using Python, SQL, Flask, Next.js,
@@ -51,16 +51,16 @@ export default function About() {
               </p>
             </div>
 
-            <div className="w-full flex justify-center mt-12">
+            <div className="w-full flex justify-center mt-8 sm:mt-12">
               {isMounted && <TechIcons />}
             </div>
           </div>
         </div>
 
         <div
-          className={`${styles.animateSlideFromBottom} ${styles.animationDelay300} mb-12`}
+          className={`${styles.animateSlideFromBottom} ${styles.animationDelay300} mb-10 sm:mb-12`}
         >
-          <p className="text-white/90 text-lg">
+          <p className="text-white/90 text-base sm:text-lg">
             Currently exploring full‑time roles in AI, data science, and MLOps
             as I graduate in Spring 2025. I thrive on complex challenges and
             love growing technically and creatively.
@@ -133,9 +133,9 @@ function TechIcons() {
             <Image
               src={src}
               alt={src.split("/").pop()?.replace(".svg", "") || "icon"}
-              width={32}
-              height={32}
-              className={styles.techIcon}
+              width={28}
+              height={28}
+              className={`${styles.techIcon} w-7 h-7 sm:w-8 sm:h-8`}
               priority
             />
           </div>

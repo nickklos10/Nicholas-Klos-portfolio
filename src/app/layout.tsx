@@ -22,8 +22,10 @@ const roboto_mono = Roboto_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My Portfolio",
-  description: "Welcome to my personal portfolio website",
+  title: "Nicholas Klos | Portfolio",
+  description: "Software Engineer & Data Scientist Portfolio",
+  viewport:
+    "width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover",
 };
 
 export default function RootLayout({
@@ -32,17 +34,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full overflow-auto">
+    <html lang="en" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
-        {/* Other head elements like title and meta description are handled by Next.js Metadata API */}
+        <meta name="theme-color" content="#0a192f" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
       </head>
       <body
-        className={`${inter.variable} ${montserrat.variable} ${roboto_mono.variable} antialiased min-h-screen bg-background text-foreground h-full overflow-auto`}
+        className={`${inter.variable} ${montserrat.variable} ${roboto_mono.variable} antialiased min-h-screen bg-background text-foreground`}
       >
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-1 w-full h-full overflow-auto">{children}</main>
+          <main className="flex-1 w-full overflow-x-hidden overflow-y-auto">
+            {children}
+          </main>
         </div>
       </body>
     </html>

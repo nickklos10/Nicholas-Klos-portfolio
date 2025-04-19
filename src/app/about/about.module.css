@@ -9,7 +9,7 @@
 }
 @keyframes slideFromRight {
   from {
-    transform: translateX(50px);
+    transform: translateX(30px);
     opacity: 0;
   }
   to {
@@ -19,7 +19,7 @@
 }
 @keyframes slideFromBottom {
   from {
-    transform: translateY(50px);
+    transform: translateY(30px);
     opacity: 0;
   }
   to {
@@ -29,15 +29,17 @@
 }
 
 .animateFadeIn {
-  animation: fadeIn 0.8s ease-out forwards;
+  animation: fadeIn 0.6s ease-out forwards;
 }
 .animateSlideFromRight {
   opacity: 0;
-  animation: slideFromRight 0.8s ease-out forwards;
+  animation: slideFromRight 0.6s ease-out forwards;
+  will-change: transform, opacity;
 }
 .animateSlideFromBottom {
   opacity: 0;
-  animation: slideFromBottom 0.8s ease-out forwards;
+  animation: slideFromBottom 0.6s ease-out forwards;
+  will-change: transform, opacity;
 }
 
 /* delay utilities */
@@ -57,7 +59,7 @@
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
-  height: 2rem;
+  height: 1.75rem;
   overflow: hidden;
   mask-image: linear-gradient(
     to right,
@@ -75,27 +77,40 @@
   );
 }
 
+@media (min-width: 640px) {
+  .techIconsContainer {
+    height: 2rem;
+  }
+}
+
 .techIconsWrapper {
   display: flex;
-  gap: 3rem;
+  gap: 2.5rem;
   position: absolute;
   top: 0;
   left: 0;
   will-change: transform;
   /* animation name and timing are reapplied in JS */
+  transform: translateZ(0); /* Force GPU acceleration */
+}
+
+@media (min-width: 640px) {
+  .techIconsWrapper {
+    gap: 3rem;
+  }
 }
 
 .techIconWrapper {
   flex-shrink: 0;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 .techIcon {
   display: block;
-  width: 2rem;
-  height: 2rem;
   opacity: 0.7;
   transition: opacity 0.3s ease;
   backface-visibility: hidden;
+  transform: translateZ(0); /* Force GPU acceleration */
 }
 
 .techIcon:hover {
