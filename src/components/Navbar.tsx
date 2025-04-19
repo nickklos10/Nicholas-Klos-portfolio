@@ -10,6 +10,7 @@ const Navbar = () => {
   const [hidden, setHidden] = useState(false);
   const lastScrollY = useRef(0);
   const pathname = usePathname();
+  const scrollTimer = useRef<NodeJS.Timeout | null>(null);
 
   // Close mobile menu when clicking outside
   const menuRef = useRef<HTMLDivElement>(null);
@@ -39,17 +40,27 @@ const Navbar = () => {
     setIsOpen(false);
   }, [pathname]);
 
+  // Modified scroll handler with debounce
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
+      const isMobile = window.innerWidth < 768;
 
+      // Always show navbar on mobile devices
+      if (isMobile) {
+        setHidden(false);
+        setScrolled(currentScrollY > 10);
+        return;
+      }
+
+      // Desktop behavior
       if (currentScrollY > 50) {
         setScrolled(true);
       } else {
         setScrolled(false);
       }
 
-      // Hide header on scroll down, show on scroll up
+      // Only hide header on desktop
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setHidden(true);
       } else {
@@ -59,8 +70,24 @@ const Navbar = () => {
       lastScrollY.current = currentScrollY;
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Debounced scroll handler for better performance
+    const debouncedScroll = () => {
+      if (scrollTimer.current) {
+        clearTimeout(scrollTimer.current);
+      }
+
+      scrollTimer.current = setTimeout(() => {
+        handleScroll();
+      }, 10);
+    };
+
+    window.addEventListener("scroll", debouncedScroll, { passive: true });
+    return () => {
+      if (scrollTimer.current) {
+        clearTimeout(scrollTimer.current);
+      }
+      window.removeEventListener("scroll", debouncedScroll);
+    };
   }, []);
 
   const linkClasses = (path: string) => {
@@ -79,7 +106,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`text-gray-300 bg-slate-800/90 backdrop-blur-md transition-all duration-300 z-40 sticky top-0 ${
+      className={`text-gray-300 bg-slate-800/90 backdrop-blur-md transition-all duration-300 z-40 sticky top-0 md:${
         hidden ? "-translate-y-full" : "translate-y-0"
       }`}
       style={{ height: "60px" }}
@@ -206,7 +233,7 @@ const Navbar = () => {
           isOpen ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="px-4 py-3 space-y-2.5 border-t border-slate-700">
+        <div className="px-4 py-3 space-y-2.5 border-t border-slate-700 max-h-[80vh] overflow-y-auto pb-16">
           <Link
             href="/"
             className={mobileLinkClasses("/")}
