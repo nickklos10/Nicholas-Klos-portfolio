@@ -6,6 +6,14 @@
   "framework": "nextjs",
   "public": true,
   "github": {
-    "silent": true
+    "silent": true,
+    "autoAlias": true,
+    "enabled": true,
+    "autoJobCancelation": true
+  },
+  "git": {
+    "deploymentEnabled": {
+      "main": true
+    }
   }
 }
