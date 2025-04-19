@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground: white;
+  --background: #0a192f;
+  --gradient-start: #0a192f;
+  --gradient-mid1: #0e2444;
+  --gradient-mid2: #1f3c69;
+  --gradient-end: #4c75b4;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow-y: auto;
+}
+
+body {
+  background: linear-gradient(
+    to bottom,
+    var(--gradient-start) 0%,
+    var(--gradient-mid1) 35%,
+    var(--gradient-mid2) 65%,
+    var(--gradient-end) 100%
+  );
+  color: var(--foreground);
+  font-family: var(--font-inter, Arial, Helvetica, sans-serif);
+  background-attachment: fixed;
+  min-height: 100vh;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+  overflow-x: hidden;
+}
+
+@layer base {
+  html,
+  body {
+    @apply overflow-y-auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    /* This is no longer needed as body color is set */
+  }
+
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 161, 172, 193;
+    --background-end-rgb: 240, 242, 245;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-montserrat);
+    color: inherit;
+  }
+
+  body {
+    font-family: var(--font-inter);
+  }
+
+  /* Logo text styling */
+  .logo-text {
+    font-family: var(--font-roboto-mono);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    position: relative;
+    z-index: 1;
+    color: #ffffff;
+    text-shadow: none;
+    transform: translateY(-1px);
+    transition: color 0.3s ease-in-out;
+  }
+
+  /* Define the color changing animation */
+  @keyframes logoColorChange {
+    0%,
+    100% {
+      color: #4f46e5;
+    }
+    25% {
+      color: #06b6d4;
+    }
+    50% {
+      color: #3b82f6;
+    }
+    75% {
+      color: #6366f1;
+    }
+  }
+
+  /* Apply animation on parent hover */
+  .group:hover .logo-text {
+    animation: logoColorChange 3s linear infinite;
+  }
+
+  /* Remove background from profile image */
+  .profile-image {
+    background: none;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
