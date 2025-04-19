@@ -8,9 +8,9 @@ import styled from "styled-components";
 
 export default function Home() {
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center relative pt-12 md:pt-4 pb-16 md:pb-4">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center relative pt-8 md:pt-4 pb-16 md:pb-4">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center h-full gap-4 md:gap-12 pt-24 md:pt-0">
+      <section className="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center h-full gap-4 md:gap-12 pt-16 md:pt-0">
         <div className="md:w-1/2 max-w-2xl md:max-h-[80vh] flex flex-col space-y-3 md:space-y-8">
           <h1 className="text-xl md:text-5xl font-bold font-heading text-white">
             👋🏻 Hi, It's <span className="text-blue-600">NICHOLAS KLOS</span>
