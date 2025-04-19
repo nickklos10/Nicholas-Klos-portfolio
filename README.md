@@ -1,46 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Nicholas Klos - Portfolio Website
+
+A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. This website showcases my projects, experience, and skills as a developer.
+
+## Live Demo
+
+[Live Portfolio Website](https://nicholas-klos-portfolio.vercel.app/)
+
+## Features
+
+- **Responsive Design**: Fully responsive on mobile, tablet, and desktop devices
+- **Modern UI**: Clean, intuitive interface with smooth animations
+- **Dark/Light Mode**: Automatic theme switching based on system preferences
+- **Interactive Elements**: Hover effects, animations, and transitions for engaging user experience
+
+### Pages
+
+- **Home**: Introduction with animated text and call-to-action buttons
+- **About**: Personal bio, skills, and background information
+- **Projects**: Showcase of recent development projects with descriptions and links
+- **Experience**: Work history, education, and certifications with interactive components
+- **Contact**: Interactive contact cards for LinkedIn, Email, and X (Twitter)
+
+## Tech Stack
+
+- **Frontend Framework**: [Next.js 14](https://nextjs.org/) (React framework)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) for utility-first CSS
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) for smooth animations
+- **Icons**: [Lucide Icons](https://lucide.dev/) for minimalist icons
+- **Font**: System fonts optimized with next/font
+
+## Project Structure
+
+```
+portfolio/
+├── public/             # Static assets (images, icons)
+│   ├── icons/          # Technology and skill icons
+│   └── logos/          # Company logos for experience section
+├── src/
+│   ├── app/            # Next.js App Router pages
+│   │   ├── about/      # About page components
+│   │   ├── contact/    # Contact page components
+│   │   ├── experience/ # Experience page components
+│   │   ├── projects/   # Projects page components
+│   │   └── globals.css # Global styles
+│   └── components/     # Reusable components
+│       ├── Navbar.tsx  # Navigation component
+│       └── ...         # Other shared components
+├── tailwind.config.js  # Tailwind CSS configuration
+└── next.config.js      # Next.js configuration
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 16.8.0 or later
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/nickklos10/Nicholas-Klos-portfolio.git
+   cd Nicholas-Klos-portfolio
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view the site in your browser.
+
+## Customization
+
+### Adding Projects
+
+Edit the `projects` array in `src/app/projects/page.tsx` to add your own projects:
+
+```tsx
+const projects = [
+  {
+    id: 1,
+    title: "Your Project Title",
+    description: "Project description goes here",
+    tags: ["Next.js", "React", "TypeScript"],
+    imageUrl: "/your-project-image.jpg",
+    githubUrl: "https://github.com/yourusername/project-repo",
+    liveUrl: "https://project-demo.com",
+  },
+  // Add more projects...
+];
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Updating Experience
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Modify the `experiences` array in `src/app/experience/page.tsx` with your work history.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Adding Skills
 
-## Learn More
+Update the `skillCategories` array in `src/app/experience/page.tsx` to showcase your technical skills.
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The easiest way to deploy this Next.js app is using the [Vercel Platform](https://vercel.com/new).
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Push your code to a GitHub repository
+2. Import the project to Vercel
+3. Vercel will automatically detect Next.js and configure the build settings
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Acknowledgments
 
-# Portfolio Website
-
-## Setup Instructions
-
-1. Add company logos to the public/logos directory:
-   - `public/logos/pwc-logo.png` - PwC logo
-   - `public/logos/fsec-logo.png` - Florida Solar Energy Center logo
-
-These logos should be PNG files with transparent backgrounds for best results.
+- [Next.js](https://nextjs.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lucide Icons](https://lucide.dev/)
