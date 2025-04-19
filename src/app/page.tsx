@@ -8,7 +8,7 @@ import styled from "styled-components";
 
 export default function Home() {
   return (
-    <div className="h-[calc(100vh-4rem)] flex flex-col justify-center relative pt-12 md:pt-4">
+    <div className="min-h-[calc(100vh-4rem)] flex flex-col justify-center relative pt-12 md:pt-4 pb-16 md:pb-4">
       {/* Hero Section */}
       <section className="container mx-auto px-4 flex flex-col-reverse md:flex-row items-center justify-center h-full gap-4 md:gap-12 pt-24 md:pt-0">
         <div className="md:w-1/2 max-w-2xl md:max-h-[80vh] flex flex-col space-y-3 md:space-y-8">
@@ -26,7 +26,7 @@ export default function Home() {
             strong focus on Machine Learning, Artificial Intelligence, and Data
             Analysis.
           </p>
-          <div className="flex flex-wrap gap-3 md:gap-6 mt-3 md:mt-8">
+          <div className="flex flex-wrap gap-3 md:gap-6 mt-3 md:mt-8 mb-8 md:mb-0">
             <div className="transform scale-80 md:scale-100 origin-left">
               <Link href="/projects">
                 <AnimatedButton text="VIEW MY WORK" color="blue" />
@@ -41,7 +41,7 @@ export default function Home() {
           </div>
         </div>
         <div className="md:w-1/3 flex justify-center mb-2 md:mb-0">
-          <StyledPortraitContainer className="scale-65 md:scale-100">
+          <StyledPortraitContainer>
             {/* Decorative elements */}
             <div className="absolute w-4 h-4 bg-yellow-400/20 rounded-full -top-2 -left-1"></div>
             <div className="absolute w-6 h-6 bg-yellow-400/20 rounded-full bottom-10 -right-2"></div>
@@ -82,8 +82,8 @@ const StyledPortraitContainer = styled.div`
 
   /* Add custom scaling for mobile */
   @media (max-width: 768px) {
-    max-width: 240px;
-    transform: scale(0.65);
+    max-width: 280px;
+    transform: scale(0.85);
   }
 
   .frame-back {

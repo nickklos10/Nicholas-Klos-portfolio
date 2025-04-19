@@ -177,3 +177,27 @@ body {
     padding-right: max(1rem, env(safe-area-inset-right));
   }
 }
+
+/* Fix for Safari viewport height issues */
+@supports (-webkit-touch-callout: none) {
+  .min-h-screen {
+    min-height: -webkit-fill-available;
+  }
+
+  .h-screen {
+    height: -webkit-fill-available;
+  }
+
+  .h-\[calc\(100vh-4rem\)\],
+  .min-h-\[calc\(100vh-4rem\)\] {
+    height: calc(-webkit-fill-available - 4rem);
+    min-height: calc(-webkit-fill-available - 4rem);
+  }
+}
+
+/* Add extra padding at the bottom for mobile browsers with disappearing UI */
+@media (max-width: 768px) {
+  body {
+    padding-bottom: env(safe-area-inset-bottom, 16px);
+  }
+}
