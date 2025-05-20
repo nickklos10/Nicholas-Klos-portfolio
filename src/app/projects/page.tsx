@@ -27,7 +27,7 @@ const projects = [
     id: 1,
     title: "F1GPT",
     description:
-      "A specialized Formula 1 racing chat application built with Next.js, React, and Tailwind CSS. This project uses Retrieval Augmented Generation (RAG) to provide accurate, context-aware responses about Formula 1 racing.",
+      "A specialized Formula 1 racing chat application built with Next.js, React, and Tailwind CSS. This project uses Retrieval Augmented Generation and Langchain.",
     tags: [
       "OpenAI",
       "RAG",
@@ -39,7 +39,7 @@ const projects = [
       "API Integration",
       "TypeScript",
     ],
-    imageUrl: "/f1gpt.jpg",
+    imageUrl: "/f1-gpt.jpg",
     githubUrl: "https://github.com/nickklos10/f1-chat",
     liveUrl: "https://f1-chat-lilac.vercel.app/",
   },
