@@ -4,7 +4,7 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Tailw
 
 ## Portfolio Link
 
-[Live Portfolio Website](https://nicholas-klos-portfolio.vercel.app/)
+[Live Portfolio Website](https://nk-portfolio-beta.vercel.app/projects)
 
 ## Features
 
