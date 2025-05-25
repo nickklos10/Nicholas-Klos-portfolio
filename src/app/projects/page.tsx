@@ -75,7 +75,7 @@ const projects = [
       "Pytorch",
       "torchvision",
       "FastAPI",
-      "AWS"
+      "AWS",
       "docker",
       "jinja2",
       "typescript",
