@@ -87,6 +87,25 @@ const projects = [
   },
   {
     id: 4,
+    title: "SQL Data Engineering Warehouse",
+    description:
+      "A complete SQL-based data warehouse implementation featuring a medallion architecture",
+    tags: [
+      "PostgreSQL",
+      "SQL",
+      "Data Warehousing",
+      "Data Modeling",
+      "Data Engineering",
+      "Business Intelligence",
+      "ETL",
+    ],
+    imageUrl: "/data_architecture.png",
+    githubUrl:
+      "https://github.com/nickklos10/sql-data-warehouse",
+    liveUrl: "https://weather-dashboard-demo.vercel.app",
+  },
+  {
+    id: 5,
     title: "3-tier distributed Enterprise system",
     description:
       "A servlet/JSP-based multi-tiered enterprise application using a Tomcat container that allows clients, accountants and root-level users to execute SQL queries and updates with specific business logic implementation.",
@@ -106,7 +125,7 @@ const projects = [
     liveUrl: "https://weather-dashboard-demo.vercel.app",
   },
   {
-    id: 5,
+    id: 6,
     title: "Portfolio Website",
     description:
       "A personal portfolio website showcasing my projects and skills. Built with Next.js and Tailwind CSS.",
@@ -116,7 +135,7 @@ const projects = [
     liveUrl: "https://portfolio-demo.vercel.app",
   },
   {
-    id: 6,
+    id: 7,
     title: "Fashion CNN Classifier",
     description:
       "A convolutional neural network (CNN) designed to classify images from the Fashion-MNIST dataset.",
@@ -133,7 +152,7 @@ const projects = [
     liveUrl: "https://recipe-demo.vercel.app",
   },
   {
-    id: 7,
+    id: 8,
     title: "Banking System Simulation",
     description:
       "A multithreaded banking system simulation designed to handle concurrent banking operations.",
