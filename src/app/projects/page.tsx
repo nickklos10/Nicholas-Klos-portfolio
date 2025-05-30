@@ -106,6 +106,25 @@ const projects = [
   },
   {
     id: 5,
+    title: "Finance Tracker Backend",
+    description:
+      "A Spring Boot application that provides a secure and scalable RESTful interface for managing personal finance data",
+    tags: [
+      "Spring Boot",
+      "SQL",
+      "Java",
+      "Auth0 Authentication",
+      "PostgreSQL",
+      "Docker",
+      "Backend Development",
+    ],
+    imageUrl: "/finsight.png",
+    githubUrl:
+      "https://github.com/nickklos10/Finance-Tracker-backend",
+    liveUrl: "https://weather-dashboard-demo.vercel.app",
+  },
+  {
+    id: 6,
     title: "3-tier distributed Enterprise system",
     description:
       "A servlet/JSP-based multi-tiered enterprise application using a Tomcat container that allows clients, accountants and root-level users to execute SQL queries and updates with specific business logic implementation.",
@@ -125,7 +144,7 @@ const projects = [
     liveUrl: "https://weather-dashboard-demo.vercel.app",
   },
   {
-    id: 6,
+    id: 7,
     title: "Portfolio Website",
     description:
       "A personal portfolio website showcasing my projects and skills. Built with Next.js and Tailwind CSS.",
@@ -135,7 +154,7 @@ const projects = [
     liveUrl: "https://portfolio-demo.vercel.app",
   },
   {
-    id: 7,
+    id: 8,
     title: "Fashion CNN Classifier",
     description:
       "A convolutional neural network (CNN) designed to classify images from the Fashion-MNIST dataset.",
@@ -152,7 +171,7 @@ const projects = [
     liveUrl: "https://recipe-demo.vercel.app",
   },
   {
-    id: 8,
+    id: 9,
     title: "Banking System Simulation",
     description:
       "A multithreaded banking system simulation designed to handle concurrent banking operations.",
