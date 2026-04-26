@@ -234,7 +234,7 @@ export function ConversationalPortfolio() {
                   ...last,
                   content: parsed.clean,
                   streaming: false,
-                  cards: parsed.cards,
+                  tools: [],
                   ctx: parsed.ctx,
                 };
               }

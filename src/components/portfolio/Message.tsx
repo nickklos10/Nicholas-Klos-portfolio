@@ -5,13 +5,25 @@ import { ABOUT } from "@/lib/about";
 import type { Ctx } from "@/lib/parse-reply";
 import { CaseCard } from "./CaseCard";
 import { Dot } from "./marks";
+import { EmailDraftPanel, type EmailDraftOutput } from "./EmailDraftPanel";
+import { ScheduleCallPanel, type ScheduleCallOutput } from "./ScheduleCallPanel";
+import {
+  FollowUpConfirmationPanel,
+  type FollowUpConfirmationOutput,
+} from "./FollowUpConfirmationPanel";
+
+export type ToolEvent =
+  | { name: "surface_projects"; output: { ok: boolean; ids: string[] } }
+  | { name: "draft_intro_email"; output: EmailDraftOutput }
+  | { name: "schedule_call"; output: ScheduleCallOutput }
+  | { name: "request_human_followup"; output: FollowUpConfirmationOutput };
 
 export type Msg = {
   role: "user" | "assistant";
   content: string;
   t: string;
   streaming?: boolean;
-  cards?: string[];
+  tools?: ToolEvent[];
   ctx?: Ctx;
 };
 
@@ -27,9 +39,6 @@ export function Message({
   isLast: boolean;
 }) {
   const isUser = msg.role === "user";
-  const cards = (msg.cards || [])
-    .map((id) => ABOUT.caseStudies.find((c) => c.id === id))
-    .filter((c): c is NonNullable<typeof c> => Boolean(c));
 
   return (
     <div
@@ -89,20 +98,36 @@ export function Message({
         )}
       </div>
 
-      {cards.length > 0 && !msg.streaming && (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns:
-              cards.length === 1 ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: 12,
-            width: "min(720px, 100%)",
-            marginTop: 4,
-          }}
-        >
-          {cards.map((c) => (
-            <CaseCard key={c.id} data={c} accent={accent} />
-          ))}
+      {(msg.tools?.length ?? 0) > 0 && !msg.streaming && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 12, width: "100%", marginTop: 4 }}>
+          {msg.tools?.map((t, i) => {
+            if (t.name === "surface_projects") {
+              const cards = (t.output.ids || [])
+                .map((id) => ABOUT.caseStudies.find((c) => c.id === id))
+                .filter((c): c is NonNullable<typeof c> => Boolean(c));
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns:
+                      cards.length === 1 ? "1fr" : "repeat(auto-fit, minmax(280px, 1fr))",
+                    gap: 12,
+                    width: "min(720px, 100%)",
+                  }}
+                >
+                  {cards.map((c) => (
+                    <CaseCard key={c.id} data={c} accent={accent} />
+                  ))}
+                </div>
+              );
+            }
+            if (t.name === "draft_intro_email") return <EmailDraftPanel key={i} output={t.output} />;
+            if (t.name === "schedule_call") return <ScheduleCallPanel key={i} output={t.output} />;
+            if (t.name === "request_human_followup")
+              return <FollowUpConfirmationPanel key={i} output={t.output} />;
+            return null;
+          })}
         </div>
       )}
 
