@@ -41,3 +41,4 @@ select = ["E", "F", "I", "B", "UP", "ASYNC"]
 asyncio_mode = "auto"
 testpaths = ["tests"]
 addopts = "-ra"
+markers = ["integration: requires running Postgres + ingested corpus"]
