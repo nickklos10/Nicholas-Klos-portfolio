@@ -17,6 +17,7 @@ import {
   type Ctx,
 } from "@/lib/parse-reply";
 import { streamChat, type ChatTurn } from "@/lib/chat-client";
+import { runSlashCommand } from "@/lib/slash-commands";
 import { Crosshair, Dot } from "./marks";
 import { Message, type Msg, type ToolEvent } from "./Message";
 import { Sidebar } from "./Sidebar";
@@ -176,6 +177,21 @@ export function ConversationalPortfolio() {
       const trimmed = text.trim();
       if (!trimmed || busy) return;
       setHistoryIdx(-1);
+
+      const slash = trimmed.startsWith("/") ? runSlashCommand(trimmed) : null;
+      if (slash && !opts.regenerate) {
+        const userMsg: Msg = { role: "user", content: trimmed, t: nowStamp() };
+        const replyMsg: Msg = {
+          role: "assistant",
+          content: slash.reply,
+          t: nowStamp(),
+          ctx: slash.ctx,
+        };
+        setMessages((m) => [...m, userMsg, replyMsg]);
+        setInput("");
+        slash.sideEffect?.();
+        return;
+      }
 
       let baseMessages: Msg[];
       if (opts.regenerate) {
