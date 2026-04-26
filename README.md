@@ -1,134 +1,65 @@
-# Nicholas Klos - Portfolio Website
+# Nicholas Klos — A Conversational Portfolio
 
-A modern, responsive portfolio website built with Next.js, TypeScript, and Tailwind CSS. This website showcases my projects, experience, and skills as a developer.
+A single-page, chat-first portfolio. The page _is_ the chat — no separate
+About / Projects / Contact routes. Visitors ask questions and the assistant
+surfaces case-study cards, bio, and contact info inline.
 
-## Portfolio Link
-
-[Live Portfolio Website](https://nk-portfolio-beta.vercel.app/projects)
+Built with Next.js 15, React 19, TypeScript, Tailwind v4. Currently wired to
+a local keyword-based stub that follows the same `[[CARDS: …]] [[CTX: …]]`
+directive contract a real Claude integration would use, so the UI behaves
+end-to-end without an API key.
 
 ## Features
 
-- **Responsive Design**: Fully responsive on mobile, tablet, and desktop devices
-- **Modern UI**: Clean, intuitive interface with smooth animations
-- **Dark/Light Mode**: Automatic theme switching based on system preferences
-- **Interactive Elements**: Hover effects, animations, and transitions for engaging user experience
+- Swiss-minimalist design: serif display + sans body + mono metadata
+- Persistent hero, faked token-by-token streaming, regenerate button
+- Context-aware follow-up suggestions (work / bio / contact / general)
+- Theme toggle: Light / Cream / Ink (persists to `localStorage`)
+- Share-via-URL-hash: copy a URL that rehydrates the conversation
+- Keyboard: ⌘K focus, ↵ send, ⇧↵ newline, ↑/↓ recall history, 1–N starter prompts
+- Mobile: under 880px the sidebar collapses to a compact header
 
-### Pages
+## Getting started
 
-- **Home**: Introduction with animated text and call-to-action buttons
-- **About**: Personal bio, skills, and background information
-- **Projects**: Showcase of recent development projects with descriptions and links
-- **Experience**: Work history, education, and certifications with interactive components
-- **Contact**: Interactive contact cards for LinkedIn, Email, and X (Twitter)
-
-## Tech Stack
-
-- **Frontend Framework**: [Next.js 14](https://nextjs.org/) (React framework)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/) for utility-first CSS
-- **Animations**: [Framer Motion](https://www.framer.com/motion/) for smooth animations
-- **Icons**: [Lucide Icons](https://lucide.dev/) for minimalist icons
-- **Font**: System fonts optimized with next/font
-
-## Project Structure
-
-```
-portfolio/
-├── public/             # Static assets (images, icons)
-│   ├── icons/          # Technology and skill icons
-│   └── logos/          # Company logos for experience section
-├── src/
-│   ├── app/            # Next.js App Router pages
-│   │   ├── about/      # About page components
-│   │   ├── contact/    # Contact page components
-│   │   ├── experience/ # Experience page components
-│   │   ├── projects/   # Projects page components
-│   │   └── globals.css # Global styles
-│   └── components/     # Reusable components
-│       ├── Navbar.tsx  # Navigation component
-│       └── ...         # Other shared components
-├── tailwind.config.js  # Tailwind CSS configuration
-└── next.config.js      # Next.js configuration
+```bash
+npm install
+npm run dev
 ```
 
-## Getting Started
+Open <http://localhost:3000>.
 
-### Prerequisites
+## Editing the content
 
-- Node.js 16.8.0 or later
-- npm or yarn package manager
+All user-facing copy lives in [`src/lib/about.ts`](src/lib/about.ts):
 
-### Installation
+- `name`, `email`, social links, `currently`, `voice`
+- `experience` entries
+- `caseStudies` — each card has `id`, `title`, `tag`, `mark`
+  (`"grid" | "wave" | "spark"`), `summary`, `stack`, `outcomes`, `lesson`,
+  and optional `links: { github, live }`
 
-1. Clone the repository:
+The conversation logic is split between:
 
-   ```bash
-   git clone https://github.com/nickklos10/Nicholas-Klos-portfolio.git
-   cd Nicholas-Klos-portfolio
-   ```
+- [`src/lib/system-prompt.ts`](src/lib/system-prompt.ts) — the system prompt
+  for the future real-Claude wiring
+- [`src/lib/stub-reply.ts`](src/lib/stub-reply.ts) — the keyword-based fake
+  used today; swap one call site in `ConversationalPortfolio.tsx` to use a
+  real `/api/chat` route later
+- [`src/lib/parse-reply.ts`](src/lib/parse-reply.ts) — `[[CARDS]]` / `[[CTX]]`
+  parsing, suggestion sets, transcript encode/decode, fake streaming
 
-2. Install dependencies:
+## Tech stack
 
-   ```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-3. Run the development server:
-
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-4. Open [http://localhost:3000](http://localhost:3000) to view the site in your browser.
-
-## Customization
-
-### Adding Projects
-
-Edit the `projects` array in `src/app/projects/page.tsx` to add your own projects:
-
-```tsx
-const projects = [
-  {
-    id: 1,
-    title: "Your Project Title",
-    description: "Project description goes here",
-    tags: ["Next.js", "React", "TypeScript"],
-    imageUrl: "/your-project-image.jpg",
-    githubUrl: "https://github.com/yourusername/project-repo",
-    liveUrl: "https://project-demo.com",
-  },
-  // Add more projects...
-];
-```
-
-### Updating Experience
-
-Modify the `experiences` array in `src/app/experience/page.tsx` with your work history.
-
-### Adding Skills
-
-Update the `skillCategories` array in `src/app/experience/page.tsx` to showcase your technical skills.
+- [Next.js 15](https://nextjs.org/) (App Router)
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
+- Google Fonts via `next/font`: Instrument Serif, Inter Tight, JetBrains Mono
 
 ## Deployment
 
-The easiest way to deploy this Next.js app is using the [Vercel Platform](https://vercel.com/new).
-
-1. Push your code to a GitHub repository
-2. Import the project to Vercel
-3. Vercel will automatically detect Next.js and configure the build settings
+Pushes to `main` deploy on [Vercel](https://vercel.com).
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- [Next.js](https://nextjs.org/)
-- [Tailwind CSS](https://tailwindcss.com/)
-- [Framer Motion](https://www.framer.com/motion/)
-- [Lucide Icons](https://lucide.dev/)
+MIT.

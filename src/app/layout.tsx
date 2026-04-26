@@ -1,51 +1,50 @@
-import type { Metadata } from "next";
-import { Inter, Montserrat, Roboto_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Instrument_Serif, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 
-const inter = Inter({
+const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
+  weight: "400",
+  style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-inter",
+  variable: "--font-instrument-serif",
 });
 
-const montserrat = Montserrat({
+const interTight = Inter_Tight({
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
-  variable: "--font-montserrat",
+  variable: "--font-inter-tight",
 });
 
-const roboto_mono = Roboto_Mono({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
-  variable: "--font-roboto-mono",
+  variable: "--font-jetbrains-mono",
 });
 
 export const metadata: Metadata = {
-  title: "Nicholas Klos | Portfolio",
-  description: "Software Engineer & Data Scientist Portfolio",
-  viewport:
-    "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover",
+  title: "Ask Nicholas — A Conversational Portfolio",
+  description:
+    "Nicholas Klos's conversational portfolio — chat with a digital twin to learn about my work, background, and how to get in touch.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#FAFAF7",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <meta charSet="utf-8" />
-        <meta name="theme-color" content="#0a192f" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="format-detection" content="telephone=no" />
-      </head>
       <body
-        className={`${inter.variable} ${montserrat.variable} ${roboto_mono.variable} antialiased`}
+        className={`${instrumentSerif.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
       >
-        <Navbar />
-        <main className="w-full pb-8">{children}</main>
+        {children}
       </body>
     </html>
   );
