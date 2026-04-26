@@ -13,14 +13,12 @@ import {
   decodeTranscript,
   encodeTranscript,
   nowStamp,
-  parseReply,
-  streamInto,
   suggestionsFor,
   type Ctx,
 } from "@/lib/parse-reply";
-import { stubReply, type ChatTurn } from "@/lib/stub-reply";
+import { streamChat, type ChatTurn } from "@/lib/chat-client";
 import { Crosshair, Dot } from "./marks";
-import { Message, type Msg } from "./Message";
+import { Message, type Msg, type ToolEvent } from "./Message";
 import { Sidebar } from "./Sidebar";
 import { MobileHeader } from "./MobileHeader";
 import { TweaksPanel, type Theme } from "./TweaksPanel";
@@ -200,66 +198,65 @@ export function ConversationalPortfolio() {
         content: "",
         t: nowStamp(),
         streaming: true,
+        tools: [],
       };
       setMessages([...baseMessages, placeholder]);
       if (!opts.regenerate) setInput("");
       setBusy(true);
 
-      try {
-        const history: ChatTurn[] = baseMessages.map((m) => ({
-          role: m.role,
-          content: m.content,
-        }));
-        const reply = await stubReply(history);
-        const parsed = parseReply(reply || "(no response)");
+      const history: ChatTurn[] = baseMessages.map((m) => ({
+        role: m.role,
+        content: m.content,
+      }));
 
-        streamInto(
-          (chunk) => {
-            setMessages((m) => {
-              const copy = m.slice();
-              const last = copy[copy.length - 1];
-              if (last && last.streaming) {
-                copy[copy.length - 1] = { ...last, content: chunk };
-              }
-              return copy;
-            });
-          },
-          parsed.clean,
-          () => {
-            setMessages((m) => {
-              const copy = m.slice();
-              const last = copy[copy.length - 1];
-              if (last && last.streaming) {
-                copy[copy.length - 1] = {
-                  ...last,
-                  content: parsed.clean,
-                  streaming: false,
-                  tools: [],
-                  ctx: parsed.ctx,
-                };
-              }
-              return copy;
-            });
-            setBusy(false);
-            setTimeout(() => inputRef.current?.focus(), 50);
-          },
-        );
-      } catch {
+      const updateLast = (mut: (last: Msg) => Msg) => {
         setMessages((m) => {
           const copy = m.slice();
           const last = copy[copy.length - 1];
-          if (last && last.streaming) {
-            copy[copy.length - 1] = {
+          if (last && last.streaming) copy[copy.length - 1] = mut(last);
+          return copy;
+        });
+      };
+
+      try {
+        for await (const evt of streamChat(history)) {
+          if (evt.kind === "text") {
+            updateLast((last) => ({ ...last, content: last.content + evt.delta }));
+          } else if (evt.kind === "tool") {
+            updateLast((last) => ({
+              ...last,
+              tools: [
+                ...(last.tools ?? []),
+                { name: evt.name, output: evt.output } as ToolEvent,
+              ],
+            }));
+          } else if (evt.kind === "ctx") {
+            updateLast((last) => ({ ...last, ctx: evt.ctx as Ctx }));
+          } else if (evt.kind === "error") {
+            updateLast((last) => ({
               ...last,
               content:
+                last.content ||
                 "The chat hit a snag. You can still email me at " + ABOUT.email + ".",
               streaming: false,
               ctx: "contact",
-            };
+            }));
+          } else if (evt.kind === "done") {
+            updateLast((last) => ({ ...last, streaming: false }));
           }
-          return copy;
-        });
+        }
+      } catch {
+        updateLast((last) => ({
+          ...last,
+          content:
+            last.content ||
+            "The chat hit a snag. You can still email me at " + ABOUT.email + ".",
+          streaming: false,
+          ctx: "contact",
+        }));
+      } finally {
         setBusy(false);
+        setTimeout(() => inputRef.current?.focus(), 50);
       }
     },
     [messages, busy],
@@ -776,7 +773,7 @@ export function ConversationalPortfolio() {
             <span>
               ↵ send · ⇧↵ newline · ↑ recall · ⌘K focus · 1–{suggestions.length} starters
             </span>
-            <span>powered by claude (stub)</span>
+            <span>powered by claude</span>
           </div>
         </div>
       </main>
