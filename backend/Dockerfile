@@ -20,4 +20,8 @@ COPY alembic ./alembic
 COPY corpus ./corpus
 
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Run idempotent migrations + corpus ingest on every container start, then
+# exec uvicorn so signals propagate cleanly. Both alembic and ingest no-op
+# when there's nothing to do (alembic at head, content hashes match), so
+# this is safe on cold-starts and adds <1s of overhead.
+CMD ["sh", "-c", "alembic upgrade head && python -m app.ingest && exec uvicorn app.main:app --host 0.0.0.0 --port 8000"]

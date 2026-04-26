@@ -27,7 +27,9 @@ services:
         fromDatabase:
           name: portfolio-db
           property: connectionString
-    preDeployCommand: alembic upgrade head && python -m app.ingest
+    # Free tier doesn't support preDeployCommand; the Dockerfile CMD runs
+    # `alembic upgrade head && python -m app.ingest` on every container start
+    # instead. Both are idempotent.
 
 databases:
   - name: portfolio-db
