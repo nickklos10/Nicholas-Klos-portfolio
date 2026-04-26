@@ -10,6 +10,31 @@ from app.tools import TOOLS, anthropic_tool_specs
 
 _client = AsyncAnthropic(api_key=settings.anthropic_api_key)
 
+
+def _content_block_to_api(b: Any) -> dict[str, Any]:
+    """Convert an SDK content block into an API-input-shaped dict.
+
+    SDK models include derived fields like `parsed_output` that the API
+    rejects on input. We project to the canonical input shape.
+    """
+    if b.type == "text":
+        return {"type": "text", "text": b.text}
+    if b.type == "tool_use":
+        return {"type": "tool_use", "id": b.id, "name": b.name, "input": b.input}
+    if b.type == "thinking":
+        # Be defensive: extended thinking has both 'thinking' and 'signature'
+        out: dict[str, Any] = {"type": "thinking", "thinking": getattr(b, "thinking", "")}
+        sig = getattr(b, "signature", None)
+        if sig is not None:
+            out["signature"] = sig
+        return out
+    # Fallback for any future block types — strip likely-derived fields.
+    raw = b.model_dump()
+    raw.pop("parsed_output", None)
+    raw.pop("input_json", None)
+    return raw
+
+
 EventKind = Literal["text", "tool", "ctx", "done"]
 
 
@@ -45,7 +70,9 @@ async def stream_chat(
             final = await stream.get_final_message()
 
         tool_uses = [b for b in final.content if b.type == "tool_use"]
-        convo.append({"role": "assistant", "content": [b.model_dump() for b in final.content]})
+        convo.append(
+            {"role": "assistant", "content": [_content_block_to_api(b) for b in final.content]}
+        )
 
         if not tool_uses:
             break
