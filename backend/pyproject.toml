@@ -13,7 +13,7 @@ dependencies = [
     "alembic==1.14.0",
     "pgvector==0.3.6",
     "anthropic==0.97.0",
-    "voyageai==0.3.7",
+    "openai==1.59.7",
     "resend==2.5.1",
     "python-frontmatter==1.1.0",
     "tiktoken==0.8.0",

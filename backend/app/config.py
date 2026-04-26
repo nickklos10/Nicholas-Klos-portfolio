@@ -6,7 +6,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
     anthropic_api_key: str
-    voyage_api_key: str
+    openai_api_key: str
     resend_api_key: str
     database_url: str
     owner_email: EmailStr

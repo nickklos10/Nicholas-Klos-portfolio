@@ -1,37 +1,43 @@
-"""Voyage AI embeddings wrapper. voyage-3 -> 1024-dim vectors."""
+"""OpenAI embeddings wrapper. text-embedding-3-small @ 1024 dims."""
 from typing import Literal
 
-import voyageai
+from openai import AsyncOpenAI
 
 from app.config import settings
 
-_client = voyageai.AsyncClient(api_key=settings.voyage_api_key)
+_client = AsyncOpenAI(api_key=settings.openai_api_key)
 
 InputType = Literal["document", "query"]
+
+EMBED_MODEL = "text-embedding-3-small"
+EMBED_DIMS = 1024
 
 
 async def embed_batch(
     texts: list[str],
     *,
-    input_type: InputType,
-    model: str = "voyage-3",
+    input_type: InputType,  # kept in signature for API symmetry; OpenAI doesn't use it
+    model: str = EMBED_MODEL,
 ) -> list[list[float]]:
-    """Embed up to 128 texts at a time."""
+    """Embed up to 2048 texts at a time (OpenAI's batch limit)."""
     if not texts:
         return []
-    if len(texts) > 128:
-        # split into 128-sized batches
+    if len(texts) > 2048:
         out: list[list[float]] = []
-        for i in range(0, len(texts), 128):
+        for i in range(0, len(texts), 2048):
             out.extend(
-                await embed_batch(texts[i : i + 128], input_type=input_type, model=model)
+                await embed_batch(texts[i : i + 2048], input_type=input_type, model=model)
             )
         return out
 
-    result = await _client.embed(texts, model=model, input_type=input_type)
-    return list(result.embeddings)
+    result = await _client.embeddings.create(
+        input=texts,
+        model=model,
+        dimensions=EMBED_DIMS,
+    )
+    return [d.embedding for d in result.data]
 
 
-async def embed_one(text: str, *, model: str = "voyage-3") -> list[float]:
+async def embed_one(text: str, *, model: str = EMBED_MODEL) -> list[float]:
     out = await embed_batch([text], input_type="query", model=model)
     return out[0]
