@@ -35,53 +35,6 @@ export function suggestionsFor(ctx: Ctx | string): Suggestion[] {
   return SUGG_INTRO;
 }
 
-export type ParsedReply = { clean: string; cards: string[]; ctx: Ctx };
-
-export function parseReply(text: string): ParsedReply {
-  let cards: string[] = [];
-  let ctx: Ctx = "general";
-  let clean = text;
-
-  const cardsM = clean.match(/\[\[CARDS:\s*([^\]]+)\]\]/i);
-  if (cardsM) {
-    cards = cardsM[1].split(",").map((s) => s.trim()).filter(Boolean);
-    clean = clean.replace(cardsM[0], "");
-  }
-  const ctxM = clean.match(/\[\[CTX:\s*([a-z]+)\s*\]\]/i);
-  if (ctxM) {
-    const c = ctxM[1].toLowerCase();
-    ctx = (["work", "bio", "contact", "general"].includes(c) ? c : "general") as Ctx;
-    clean = clean.replace(ctxM[0], "");
-  }
-  return { clean: clean.trim(), cards, ctx };
-}
-
-export function streamInto(
-  setter: (chunk: string) => void,
-  fullText: string,
-  onDone: () => void,
-): () => void {
-  const tokens = fullText.match(/\S+\s*/g) || [fullText];
-  let i = 0;
-  let acc = "";
-  let cancelled = false;
-  const tick = () => {
-    if (cancelled) return;
-    if (i >= tokens.length) {
-      onDone();
-      return;
-    }
-    const burst = Math.max(1, Math.min(3, Math.floor(i / 30) + 1));
-    for (let b = 0; b < burst && i < tokens.length; b++, i++) acc += tokens[i];
-    setter(acc);
-    setTimeout(tick, 14 + Math.random() * 22);
-  };
-  tick();
-  return () => {
-    cancelled = true;
-  };
-}
-
 export type SlimMessage = {
   role: "user" | "assistant";
   content: string;
