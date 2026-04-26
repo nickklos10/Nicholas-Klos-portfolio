@@ -23,6 +23,7 @@ import { Message, type Msg, type ToolEvent } from "./Message";
 import { Sidebar } from "./Sidebar";
 import { MobileHeader } from "./MobileHeader";
 import { TweaksPanel, type Theme } from "./TweaksPanel";
+import { AfkNudger } from "./AfkNudger";
 
 const ACCENT = "#FF5B1F";
 
@@ -795,6 +796,12 @@ export function ConversationalPortfolio() {
       </main>
 
       <TweaksPanel theme={theme} onChange={onTheme} />
+      <AfkNudger
+        inputRef={inputRef}
+        ctx={lastCtx}
+        enabled={!busy}
+        onConsume={() => {}}
+      />
     </div>
   );
 }
