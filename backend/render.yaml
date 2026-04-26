@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: docker
+    repo: # set in Render UI
+    rootDir: backend
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ANTHROPIC_API_KEY
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: RESEND_API_KEY
+        sync: false
+      - key: OWNER_EMAIL
+        value: nicholask39@gmail.com
+      - key: CALENDLY_URL
+        value: https://calendly.com/nicholask39/30min
+      - key: CLAUDE_MODEL
+        value: claude-sonnet-4-6
+      - key: RATE_LIMIT_PER_MIN
+        value: "30"
+      - key: FRONTEND_ORIGIN
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: portfolio-db
+          property: connectionString
+    preDeployCommand: alembic upgrade head && python -m app.ingest
+
+databases:
+  - name: portfolio-db
+    plan: free
+    postgresMajorVersion: 16
