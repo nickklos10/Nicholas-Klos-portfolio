@@ -21,6 +21,7 @@ export function TweaksPanel({
 
   return (
     <div
+      className="pf-theme"
       style={{
         position: "fixed",
         bottom: 16,

@@ -108,6 +108,15 @@ export function ConversationalPortfolio() {
     document.body.style.color = t.ink;
   }, [theme]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 880px)");
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
   const vars = cssVars(theme);
 
   // Deferred to useEffect to avoid SSR/client hydration mismatch
@@ -388,6 +397,7 @@ export function ConversationalPortfolio() {
           .pf-sugg-list > button { flex-shrink: 0; }
           .pf-composer { padding: 10px 16px !important; }
           .pf-composer-hints { display: none !important; }
+          .pf-theme { display: none !important; }
         }
       `}</style>
 
@@ -407,7 +417,7 @@ export function ConversationalPortfolio() {
           position: "relative",
         }}
       >
-        <MobileHeader />
+        <MobileHeader theme={theme} onTheme={onTheme} />
 
         <div
           className="pf-toprail"
@@ -709,7 +719,9 @@ export function ConversationalPortfolio() {
               placeholder={
                 busy
                   ? "Thinking…"
-                  : "Ask about my work, background, or how to get in touch…   (⌘K to focus, ↑ for last)"
+                  : isMobile
+                    ? "Ask anything…"
+                    : "Ask about my work, background, or how to get in touch…   (⌘K to focus, ↑ for last)"
               }
               disabled={busy}
               style={{
