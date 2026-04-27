@@ -356,7 +356,8 @@ export function ConversationalPortfolio() {
         ...vars,
         background: "var(--bg)",
         color: "var(--ink)",
-        minHeight: "100vh",
+        height: "100dvh",
+        overflow: "hidden",
         display: "flex",
         fontFamily: "var(--font-body)",
         position: "relative",
@@ -372,10 +373,21 @@ export function ConversationalPortfolio() {
         @media (max-width: 880px) {
           .pf-sidebar { display: none !important; }
           .pf-mobile { display: block !important; }
-          .pf-toprail { padding: 12px 18px !important; }
-          .pf-conversation { padding: 20px 18px !important; }
-          .pf-composer { padding: 12px 18px !important; }
-          .pf-suggestrow { padding: 0 18px 10px !important; }
+          .pf-toprail { padding: 10px 16px !important; }
+          .pf-toprail-title { display: none !important; }
+          .pf-hero { display: none !important; }
+          .pf-conversation { padding: 16px 16px 20px !important; }
+          .pf-suggestrow { padding: 8px 16px !important; }
+          .pf-sugg-list {
+            flex-wrap: nowrap !important;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .pf-sugg-list::-webkit-scrollbar { display: none; }
+          .pf-sugg-list > button { flex-shrink: 0; }
+          .pf-composer { padding: 10px 16px !important; }
+          .pf-composer-hints { display: none !important; }
         }
       `}</style>
 
@@ -415,7 +427,7 @@ export function ConversationalPortfolio() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <Crosshair />
-            <span>A Conversational Portfolio</span>
+            <span className="pf-toprail-title">A Conversational Portfolio</span>
           </div>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             <button
@@ -455,6 +467,7 @@ export function ConversationalPortfolio() {
         </div>
 
         <div
+          className="pf-hero"
           style={{
             padding: hasConversation ? "16px 28px 12px" : "44px 28px 12px",
             maxWidth: 880,
@@ -585,6 +598,7 @@ export function ConversationalPortfolio() {
           }}
         >
           <div
+            className="pf-sugg-list"
             style={{
               maxWidth: 880,
               margin: "0 auto",
@@ -775,6 +789,7 @@ export function ConversationalPortfolio() {
             </button>
           </div>
           <div
+            className="pf-composer-hints"
             style={{
               maxWidth: 880,
               margin: "8px auto 0",
