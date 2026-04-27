@@ -4,6 +4,7 @@ import json
 from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
+from app.config import settings
 from app.db import SessionLocal
 from app.rag.claude import stream_chat
 from app.rag.retrieve import retrieve
@@ -27,8 +28,13 @@ def _sse(event: str, data: dict) -> bytes:
 
 @router.post("/chat")
 async def chat(payload: ChatRequest, request: Request) -> StreamingResponse:
-    if not limiter.allow(_client_ip(request)):
-        raise HTTPException(status_code=429, detail="Too many requests")
+    total_chars = sum(len(m.content) for m in payload.messages)
+    if total_chars > settings.max_total_chars_per_request:
+        raise HTTPException(status_code=413, detail="request_too_large")
+
+    ok, reason = limiter.check(_client_ip(request))
+    if not ok:
+        raise HTTPException(status_code=429, detail=f"rate_limited: {reason}")
 
     last_user = next(
         (m.content for m in reversed(payload.messages) if m.role == "user"),

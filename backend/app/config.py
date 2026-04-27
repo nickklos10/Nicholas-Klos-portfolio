@@ -15,6 +15,9 @@ class Settings(BaseSettings):
     calendly_url: str = "https://calendly.com/nicholask39/30min"
     claude_model: str = "claude-haiku-4-5-20251001"
     rate_limit_per_min: int = 30
+    rate_limit_per_day_per_ip: int = 60
+    rate_limit_per_day_global: int = 1000
+    max_total_chars_per_request: int = 20000
 
     @field_validator("database_url")
     @classmethod

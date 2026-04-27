@@ -21,6 +21,12 @@ services:
         value: claude-haiku-4-5-20251001
       - key: RATE_LIMIT_PER_MIN
         value: "30"
+      - key: RATE_LIMIT_PER_DAY_PER_IP
+        value: "60"
+      - key: RATE_LIMIT_PER_DAY_GLOBAL
+        value: "1000"
+      - key: MAX_TOTAL_CHARS_PER_REQUEST
+        value: "20000"
       - key: FRONTEND_ORIGIN
         sync: false
       - key: DATABASE_URL
