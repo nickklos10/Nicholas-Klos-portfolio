@@ -21,6 +21,6 @@ class SurfaceResumeTool:
     async def run(self, raw_input: dict[str, Any]) -> dict[str, Any]:
         return {
             "ok": True,
-            "url": "/Nicholas-Klos-Resume.pdf",
-            "filename": "Nicholas-Klos-Resume.pdf",
+            "url": "/Nicholas_Klos_pro_resume.pdf",
+            "filename": "Nicholas_Klos_pro_resume.pdf",
         }

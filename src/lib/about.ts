@@ -26,7 +26,7 @@ export const ABOUT = {
   linkedin: "https://www.linkedin.com/in/nicholas-klos-16438422b/",
   twitter: "https://x.com/klos_nicholas",
   github: "https://github.com/nickklos10",
-  resumeUrl: "/Nicholas-Klos-Resume.pdf",
+  resumeUrl: "/Nicholas_Klos_pro_resume.pdf",
   currently:
     "Chief of Staff at LifeSpeak (Minneapolis) — running governance and Board reporting for 8 PMO initiatives. Concurrently Forward Deployed Engineer at Incepta Analytics, shipping Foundry-native LLM agents and PySpark pipelines for a New Private Equity client.",
   voice: [
