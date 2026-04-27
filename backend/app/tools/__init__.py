@@ -29,6 +29,12 @@ try:
 except ImportError:
     pass
 
+try:
+    from app.tools.surface_resume import SurfaceResumeTool
+    TOOLS["surface_resume"] = SurfaceResumeTool()
+except ImportError:
+    pass
+
 
 def anthropic_tool_specs() -> list[dict]:
     """Format expected by the Anthropic SDK's `tools=` argument."""

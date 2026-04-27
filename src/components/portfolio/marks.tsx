@@ -40,10 +40,46 @@ export function Portrait({ size = 64 }: { size?: number }) {
         strokeLinecap="round"
         fill="none"
       />
-      <path d="M23 28 L 28 27" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-      <path d="M37 27 L 42 28" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
-      <circle cx="26" cy="32" r="1.1" fill="currentColor" />
-      <circle cx="39" cy="32" r="1.1" fill="currentColor" />
+      <rect
+        x="22"
+        y="28"
+        width="9"
+        height="6"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        fill="currentColor"
+        fillOpacity="0.85"
+      />
+      <rect
+        x="33"
+        y="28"
+        width="9"
+        height="6"
+        rx="2.5"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        fill="currentColor"
+        fillOpacity="0.85"
+      />
+      <path
+        d="M31 31 L 33 31"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M19 30 L 22 30"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M42 30 L 45 30"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
       <path
         d="M32 33 L 31 39 L 33.5 40"
         stroke="currentColor"

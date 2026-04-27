@@ -19,16 +19,16 @@ export type ExperienceEntry = {
 
 export const ABOUT = {
   name: "Nicholas Klos",
-  role: "Forward Deployed Engineer",
-  industry: "Private Equity",
+  role: "Chief of Staff & Forward Deployed Engineer",
+  industry: "private equity & ops",
   location: "—",
   email: "nicholask39@gmail.com",
   linkedin: "https://www.linkedin.com/in/nicholas-klos-16438422b/",
   twitter: "https://x.com/klos_nicholas",
   github: "https://github.com/nickklos10",
-  resumeUrl: "#",
+  resumeUrl: "/Nicholas-Klos-Resume.pdf",
   currently:
-    "Forward Deployed Engineer at New Private Equity. Building diligence and portfolio-monitoring tooling on top of LLMs. Reading about agent eval and slowly learning to like Rust.",
+    "Chief of Staff at LifeSpeak (Minneapolis) — running governance and Board reporting for 8 PMO initiatives. Concurrently Forward Deployed Engineer at Incepta Analytics, shipping Foundry-native LLM agents and PySpark pipelines for a New Private Equity client.",
   voice: [
     "I write the way I talk: plain, specific, a bit dry. I prefer concrete examples over abstractions.",
     "I am suspicious of jargon and of any claim without a number attached.",
@@ -37,28 +37,35 @@ export const ABOUT = {
     "I'm a researcher by training and an engineer by trade; I get genuinely excited about a clean evaluation harness.",
   ],
   summary:
-    "Forward Deployed Engineer in private equity. Computer science background. Previously ML research on solar energy at the Florida Solar Energy Center, and a Data Engineering internship in AI Operations at PwC.",
+    "Chief of Staff at LifeSpeak and Forward Deployed Engineer at Incepta Analytics on the New Private Equity account. Computer science background — previously ML research at the Florida Solar Energy Center and a data engineering internship at PwC Milan.",
   experience: [
     {
-      org: "New Private Equity",
-      role: "Forward Deployed Engineer",
-      period: "2024 — Present",
+      org: "LifeSpeak",
+      role: "Chief of Staff",
+      period: "2025 — Present",
       blurb:
-        "Embedded with deal teams and portfolio companies. Building internal LLM workflows, data pipelines and dashboards that ship to investors and operators.",
+        "Strategic planning workshops across 8 PMO initiatives ($1M+ planned investments). Built a Foundry+Excel governance framework that pulled on-time delivery from 70% to 92%, and codified 15 metrics in a live Board Reporting app.",
+    },
+    {
+      org: "Incepta Analytics — New Private Equity",
+      role: "Forward Deployed Engineer",
+      period: "2023 — Present",
+      blurb:
+        "Foundry Transforms + Pipeline Builder for CRM/engagement data (errors -50%, runtime -30%). Prototyped PyTorch churn models and fine-tuned LLMs. Designed AI Agents that cut executive prep cycles by 80%.",
+    },
+    {
+      org: "Florida Solar Energy Center",
+      role: "Research Assistant — ML Engineer",
+      period: "Oct 2022 — Jul 2023",
+      blurb:
+        "AWS pipeline (Glue/EMR/S3/Lambda) ingesting 500GB/week. Time-series forecasting incl. Temporal Fusion Transformer. Boosted prediction accuracy ~25%; deployed to AWS SageMaker.",
     },
     {
       org: "PwC",
-      role: "Data Engineer Intern · AIOps / MLOps",
+      role: "Data Engineer Intern · ML Ops & AI Ops",
       period: "Summer 2022",
       blurb:
-        "Built back-end data models in Palantir Foundry and Spark pipelines for a major Italian bank. Cut model training time ~40% and shipped ETL that lifted workflow efficiency 25%.",
-    },
-    {
-      org: "Florida Solar Energy Center (UCF)",
-      role: "Undergraduate Research Assistant — Data Science",
-      period: "2022 — 2023",
-      blurb:
-        "Statistical analysis + ML for solar panel performance under varying environmental conditions. ~1.5M data points, ~500GB/week pipelines, ~25% accuracy lift.",
+        "Multi-terabyte banking pipelines in Palantir Foundry. PySpark optimization cut deep-learning model training time 10%+ and lifted flow efficiency 15%.",
     },
   ] satisfies ExperienceEntry[],
   skills: [

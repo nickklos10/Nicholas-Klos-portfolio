@@ -4,20 +4,27 @@ slug: bio-summary
 kind: bio
 ---
 
-I'm Nicholas Klos, a Forward Deployed Engineer at New Private Equity. The role
-sits between investing teams, portfolio operators, and engineering — I build
-diligence tools, monitoring dashboards, and LLM workflows that ship to people
-who actually have to act on the output.
+I'm Nicholas Klos. Right now I hold two concurrent roles: Chief of Staff at
+LifeSpeak in Minneapolis, where I run governance, strategic planning, and
+Board-level reporting for a small PE-backed company; and Forward Deployed
+Engineer at Incepta Analytics on the New Private Equity account, where I ship
+Foundry-native LLM agents and PySpark pipelines for a private equity client.
+Both started in 2023–2025 and overlap on purpose — Chief of Staff is the
+operating side, FDE is the engineering side, and the two together is most of
+what I think about.
 
-My background is computer science. Before NPE I did ML research at the Florida
-Solar Energy Center (statistical analysis and forecasting on solar panel
-performance) and a data engineering internship at PwC in their AI Operations
-group, where I built Spark pipelines and Palantir Foundry models for a major
-Italian bank.
+Before that I did ML research at the Florida Solar Energy Center (Cocoa, FL)
+from 2022 to 2023, building AWS pipelines that ingested ~500GB/week of solar
+sensor data and training time-series forecasting models — including a
+Temporal Fusion Transformer — that boosted prediction accuracy ~25%. The
+summer before that I was a Data Engineer Intern in PwC's ML Ops / AI Ops
+practice in Milan, building Palantir Foundry pipelines for a major Italian
+bank and cutting deep-learning training time by 10%+.
 
-I work in Python, TypeScript, and SQL most days. I'm comfortable across the
-stack — model code, retrieval, data plumbing, REST APIs, the occasional React
-component, and the boring infrastructure underneath. I'm a researcher by
-training and an engineer by trade, which means I get genuinely excited about
-clean evaluation harnesses and unreasonably annoyed by fancy demos that don't
-hold up under measurement.
+I graduated from the University of Central Florida in August 2025 with a B.S.
+in Computer Information Technology, GPA 3.6/4.0, with multiple Honor Roll and
+Dean's List recognitions. I work in Python, Java, and TypeScript most days,
+with daily Foundry, PyTorch, AWS, and the occasional React component. I'm a
+researcher by training and an engineer by trade — I get genuinely excited
+about clean evaluation harnesses and unreasonably annoyed by fancy demos that
+don't hold up under measurement.

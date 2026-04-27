@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     frontend_origin: str
 
     calendly_url: str = "https://calendly.com/nicholask39/30min"
-    claude_model: str = "claude-sonnet-4-6"
+    claude_model: str = "claude-haiku-4-5-20251001"
     rate_limit_per_min: int = 30
 
     @field_validator("database_url")

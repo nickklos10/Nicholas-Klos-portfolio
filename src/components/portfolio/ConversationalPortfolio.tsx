@@ -783,14 +783,11 @@ export function ConversationalPortfolio() {
               fontSize: 10,
               color: "var(--ink-soft)",
               letterSpacing: "0.06em",
-              display: "flex",
-              justifyContent: "space-between",
             }}
           >
             <span>
               ↵ send · ⇧↵ newline · ↑ recall · ⌘K focus · 1–{suggestions.length} starters
             </span>
-            <span>powered by claude</span>
           </div>
         </div>
       </main>

@@ -146,26 +146,11 @@ export function Sidebar({
           style={{
             display: "flex",
             alignItems: "center",
-            gap: 12,
             marginBottom: 10,
             color: "var(--ink)",
           }}
         >
           <Portrait size={56} />
-          <div
-            style={{
-              fontFamily: "var(--font-mono)",
-              fontSize: 10,
-              letterSpacing: "0.12em",
-              color: "var(--ink-soft)",
-              textTransform: "uppercase",
-              lineHeight: 1.3,
-            }}
-          >
-            Portfolio
-            <br />
-            v1.0
-          </div>
         </div>
         <div
           style={{

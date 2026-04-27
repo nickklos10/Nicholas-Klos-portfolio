@@ -11,12 +11,14 @@ import {
   FollowUpConfirmationPanel,
   type FollowUpConfirmationOutput,
 } from "./FollowUpConfirmationPanel";
+import { ResumePanel, type ResumeOutput } from "./ResumePanel";
 
 export type ToolEvent =
   | { name: "surface_projects"; output: { ok: boolean; ids: string[] } }
   | { name: "draft_intro_email"; output: EmailDraftOutput }
   | { name: "schedule_call"; output: ScheduleCallOutput }
-  | { name: "request_human_followup"; output: FollowUpConfirmationOutput };
+  | { name: "request_human_followup"; output: FollowUpConfirmationOutput }
+  | { name: "surface_resume"; output: ResumeOutput };
 
 export type Msg = {
   role: "user" | "assistant";
@@ -126,6 +128,7 @@ export function Message({
             if (t.name === "schedule_call") return <ScheduleCallPanel key={i} output={t.output} />;
             if (t.name === "request_human_followup")
               return <FollowUpConfirmationPanel key={i} output={t.output} />;
+            if (t.name === "surface_resume") return <ResumePanel key={i} output={t.output} />;
             return null;
           })}
         </div>

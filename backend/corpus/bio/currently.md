@@ -4,12 +4,23 @@ slug: bio-currently
 kind: bio
 ---
 
-I'm a Forward Deployed Engineer at New Private Equity. The day-to-day is
-embedded with deal teams during diligence and with portfolio companies after
-close. The work is mostly LLM workflows that have to actually be useful — so
-retrieval honesty, evaluation, and the loop between "this answer looks good"
-and "this answer is right" matter a lot.
+Two concurrent roles, both started in 2023–2025 and both still active.
 
-I'm slowly learning to like Rust. I read a lot about agent evaluation. I
-maintain a stubborn opinion that the most important number in a RAG system is
-how often retrieval surfaces the right chunk in the top three.
+At LifeSpeak (Minneapolis) I'm Chief of Staff. Day-to-day that means
+facilitating strategic planning workshops with executive leadership across 8
+cross-functional PMO initiatives, mapping roadmaps, and securing alignment on
+$1M+ of planned investments. I manage a pipeline of 12 concurrent projects
+through a standardized governance framework I built in Palantir Foundry and
+Excel — that work pulled on-time delivery from 70% to 92% and made KPI
+trajectories actually visible to investors. I also partnered with our PE
+sponsors to codify 15 performance metrics into a live Board Reporting app,
+which has driven a 20% uplift in operational KPIs and surfaced ~$500K in
+efficiency opportunities.
+
+Concurrently, at Incepta Analytics (New York) I'm a Forward Deployed Engineer
+on the New Private Equity account. That role is hands-on: building and
+maintaining Transforms code repositories in Foundry, authoring PySpark ETL
+modules for CRM and engagement data (cut downstream errors ~50%), prototyping
+PyTorch churn models and fine-tuning LLMs in Foundry Code Workspaces, and
+designing AI Agents that act as autonomous copilots for leadership workflows
+— which has reduced executive prep cycles by ~80%.

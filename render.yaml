@@ -18,7 +18,7 @@ services:
       - key: CALENDLY_URL
         value: https://calendly.com/nicholask39/30min
       - key: CLAUDE_MODEL
-        value: claude-sonnet-4-6
+        value: claude-haiku-4-5-20251001
       - key: RATE_LIMIT_PER_MIN
         value: "30"
       - key: FRONTEND_ORIGIN
