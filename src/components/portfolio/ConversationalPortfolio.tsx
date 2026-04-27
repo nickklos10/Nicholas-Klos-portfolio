@@ -117,6 +117,8 @@ export function ConversationalPortfolio() {
     return () => mq.removeEventListener("change", update);
   }, []);
 
+  const [dynamicSuggestions, setDynamicSuggestions] = useState<string[] | null>(null);
+
   const vars = cssVars(theme);
 
   // Deferred to useEffect to avoid SSR/client hydration mismatch
@@ -171,7 +173,13 @@ export function ConversationalPortfolio() {
     }
     return "general";
   }, [messages]);
-  const suggestions = suggestionsFor(lastCtx);
+  const suggestions = useMemo(
+    () =>
+      dynamicSuggestions && dynamicSuggestions.length > 0
+        ? dynamicSuggestions.map((q) => ({ label: q, text: q }))
+        : suggestionsFor(lastCtx),
+    [dynamicSuggestions, lastCtx],
+  );
   const userHistory = useMemo(
     () => messages.filter((m) => m.role === "user").map((m) => m.content),
     [messages],
@@ -229,6 +237,7 @@ export function ConversationalPortfolio() {
       setMessages([...baseMessages, placeholder]);
       if (!opts.regenerate) setInput("");
       setBusy(true);
+      setDynamicSuggestions(null);
 
       const history: ChatTurn[] = baseMessages.map((m) => ({
         role: m.role,
@@ -249,13 +258,18 @@ export function ConversationalPortfolio() {
           if (evt.kind === "text") {
             updateLast((last) => ({ ...last, content: last.content + evt.delta }));
           } else if (evt.kind === "tool") {
-            updateLast((last) => ({
-              ...last,
-              tools: [
-                ...(last.tools ?? []),
-                { name: evt.name, output: evt.output } as ToolEvent,
-              ],
-            }));
+            if (evt.name === "suggest_follow_ups") {
+              const out = evt.output as { questions?: string[] } | undefined;
+              if (out?.questions?.length) setDynamicSuggestions(out.questions);
+            } else {
+              updateLast((last) => ({
+                ...last,
+                tools: [
+                  ...(last.tools ?? []),
+                  { name: evt.name, output: evt.output } as ToolEvent,
+                ],
+              }));
+            }
           } else if (evt.kind === "ctx") {
             updateLast((last) => ({ ...last, ctx: evt.ctx as Ctx }));
           } else if (evt.kind === "error") {

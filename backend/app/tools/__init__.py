@@ -35,6 +35,12 @@ try:
 except ImportError:
     pass
 
+try:
+    from app.tools.suggest_follow_ups import SuggestFollowUpsTool
+    TOOLS["suggest_follow_ups"] = SuggestFollowUpsTool()
+except ImportError:
+    pass
+
 
 def anthropic_tool_specs() -> list[dict]:
     """Format expected by the Anthropic SDK's `tools=` argument."""

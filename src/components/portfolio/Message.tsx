@@ -18,7 +18,8 @@ export type ToolEvent =
   | { name: "draft_intro_email"; output: EmailDraftOutput }
   | { name: "schedule_call"; output: ScheduleCallOutput }
   | { name: "request_human_followup"; output: FollowUpConfirmationOutput }
-  | { name: "surface_resume"; output: ResumeOutput };
+  | { name: "surface_resume"; output: ResumeOutput }
+  | { name: "suggest_follow_ups"; output: { ok: boolean; questions: string[] } };
 
 export type Msg = {
   role: "user" | "assistant";
@@ -129,6 +130,7 @@ export function Message({
             if (t.name === "request_human_followup")
               return <FollowUpConfirmationPanel key={i} output={t.output} />;
             if (t.name === "surface_resume") return <ResumePanel key={i} output={t.output} />;
+            if (t.name === "suggest_follow_ups") return null;
             return null;
           })}
         </div>
