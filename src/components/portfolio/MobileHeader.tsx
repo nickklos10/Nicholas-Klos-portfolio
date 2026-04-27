@@ -45,13 +45,15 @@ export function MobileHeader({
               fontFamily: "var(--font-body)",
               fontSize: 12.5,
               color: "var(--ink-soft)",
-              marginTop: 2,
+              marginTop: 3,
+              lineHeight: 1.3,
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical" as React.CSSProperties["WebkitBoxOrient"],
               overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
             }}
           >
-            {ABOUT.role}, working in {ABOUT.industry}.
+            {ABOUT.role}
           </div>
         </div>
         {theme && onTheme && (
